@@ -1,0 +1,27 @@
+## MEVL-STP End-to-End Config — CTW1500
+
+_base_:
+  - ctw1500_det.yaml
+  - ctw1500_rec.yaml
+
+e2e:
+  phases:
+    - name: phase1_det_only
+      epochs: [1, 2]
+      lambda_rec: 0.0
+    - name: phase2_sparse_vlm
+      epochs: [3, 10]
+      lambda_rec: 0.2
+      vlm_every_n_steps: 16
+      crops_per_batch: 1
+    - name: phase3_full_vlm
+      epochs: [11, 30]
+      lambda_rec: 0.4
+      vlm_every_n_steps: 8
+      crops_per_batch: 2
+
+  lr_det: 1.0e-4
+  lr_vlm: 1.0e-5
+  batch_size: 8
+  accum_steps: 2                    # Effective batch = 16
+  amp: true

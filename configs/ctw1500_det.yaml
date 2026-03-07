@@ -1,0 +1,82 @@
+## MEVL-STP Detection Config — CTW1500
+## Train: 1000 images, Test: 500 images, 14-point polygon annotations
+
+model:
+  img_size: 512
+  embed_dim: 512
+  local_feat_size: 64
+  num_kernels: 6                   # PSE kernel count
+  encoders:
+    - name: clip
+      model_id: "openai/clip-vit-large-patch14-336"
+      type: clip
+    - name: dinov2
+      model_id: "facebook/dinov2-large"
+      type: dinov2
+    - name: siglip
+      model_id: "google/siglip-so400m-patch14-384"
+      type: siglip
+    - name: eva_clip
+      model_id: "openai/clip-vit-large-patch14"
+      type: clip
+    - name: sam
+      model_id: "facebook/sam-vit-huge"
+      type: sam
+    - name: convnext
+      model_id: "convnext_large_mlp.clip_laion2b_soup_ft_in12k_in1k_384"
+      type: convnext
+      out_indices: [1, 2, 3]
+  num_hidden_layers: 4             # Last N hidden states per encoder
+  fpn:
+    type: lateral
+    attention: cbam
+    output_attention: se
+  decoder:
+    type: multiscale
+    deep_supervision: true
+    channels: [256, 128, 64, 64]
+
+data:
+  dataset: ctw1500
+  train_images: "data/ctw1500/train_images"
+  train_labels: "data/ctw1500/ctw1500_train_labels"
+  test_images: "data/ctw1500/test_images"
+  test_labels: "data/ctw1500/ctw1500_test_labels"
+  label_format: xml
+  num_workers: 4
+
+train:
+  epochs: 35
+  batch_size: 4
+  accum_steps: 4                   # Effective batch = 16
+  lr: 1.0e-4
+  weight_decay: 0.01
+  optimizer: adamw
+  scheduler: cosine
+  warmup_epochs: 5
+  ema_decay: 0.9999
+  amp: true                        # bfloat16 mixed precision
+
+loss:
+  focal_weight: 0.5
+  dice_weight: 0.5
+  ohem_weight: 0.3
+  ohem_keep_ratio: 0.7
+  deep_sup_weights: [1.0, 0.4, 0.2]  # main, 1/2, 1/4
+
+augmentation:
+  random_crop: true
+  random_flip: true
+  elastic: true
+  grid_distortion: true
+  perspective: true
+  rgb_shift: true
+  blur: true
+
+pse:
+  threshold_s1: 0.4
+  threshold_sk: 0.5
+  min_area: 50
+  epsilon_ratio: 0.002
+  min_contour_area: 200
+  aspect_ratio_range: [0.1, 15.0]

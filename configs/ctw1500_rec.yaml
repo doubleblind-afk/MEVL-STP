@@ -1,0 +1,27 @@
+## MEVL-STP VLM Recognition Config — CTW1500
+
+model:
+  vlm_model_id: "Qwen/Qwen3-VL-8B-Instruct"
+  lora:
+    r: 16
+    alpha: 32
+    dropout: 0.05
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+data:
+  dataset: ctw1500
+  crop_source: polygon              # polygon | bbox | gt
+  crop_padding: 5                   # pixels
+  canvas_size: 256
+  preserve_aspect_ratio: true
+  pad_color: [255, 255, 255]        # white background
+
+train:
+  epochs: 4
+  batch_size: 16
+  lr: 1.0e-4
+  optimizer: adamw
+  scheduler: cosine
+  warmup_ratio: 0.05
+  amp: true                         # bfloat16
+  selective_loss: true              # Loss on assistant tokens only

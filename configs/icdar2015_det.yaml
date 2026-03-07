@@ -1,0 +1,16 @@
+## MEVL-STP Detection Config — ICDAR 2015
+## Train: 1000 images, Test: 500 images, word-level quadrilaterals
+##
+## NOTE: This configuration is provided for reference.
+## Training code currently supports CTW1500 dataset.
+## See the paper for ICDAR 2015 results and methodology.
+
+_base_: ctw1500_det.yaml
+
+data:
+  dataset: icdar2015
+  train_images: "data/icdar2015/train_images"
+  train_labels: "data/icdar2015/train_gt"
+  test_images: "data/icdar2015/test_images"
+  test_labels: "data/icdar2015/test_gt"
+  label_format: txt

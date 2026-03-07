@@ -146,7 +146,7 @@ python tools/inference.py \
 ## Model Architecture
 
 <p align="center">
-  <img src="assets/encoders.png" width="80%">
+  <img src="assets/ensemble.png" width="80%">
 </p>
 
 ### Two-Stage Pipeline

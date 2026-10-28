@@ -6,7 +6,7 @@
 
 > **State-of-the-art curved text spotting** through multi-encoder feature fusion and vision-language model recognition. Achieves 92.0% detection F1 and 85.9% end-to-end H-mean on CTW1500 without synthetic pretraining.
 
-📄 **Paper:** MEVL-STP: Multi-Encoder and Vision Language Model for Arbitrarily Shaped Scene Text Spotting (ECCV 2026)
+📄 **Paper:** [MEVL-STP: Multi-Encoder and Vision Language Model for Arbitrarily Shaped Scene Text Spotting](https://arxiv.org/abs/2609.28857) (arXiv preprint)
 
 ---
 
@@ -29,7 +29,7 @@
 | DPText-DETR | AAAI | 2023 | 91.7 | 86.2 | 88.8 |
 | DeepSolo* | CVPR | 2023 | 93.2 | 85.0 | 88.9 |
 | LRANet++* | arXiv | 2025 | 92.8 | 88.1 | 90.3 |
-| **MEVL-STP** | ECCV | 2026 | 90.3 | **93.8** | **92.0** |
+| **MEVL-STP** | arXiv | 2026 | 90.3 | **93.8** | **92.0** |
 
 ### End-to-End Spotting (H-mean %)
 
@@ -218,10 +218,10 @@ MEVL-STP/
 ## Citation
 
 ```bibtex
-@inproceedings{mevlstp2026,
+@article{mevlstp2026,
   title={MEVL-STP: Multi-Encoder and Vision Language Model for Arbitrarily Shaped Scene Text Spotting},
-  author={Anonymous},
-  booktitle={Proceedings of the European Conference on Computer Vision (ECCV)},
+  author={Aman Anand and Partha Pratim Roy and Shivakumara Palaiahnakote},
+  journal={arXiv preprint arXiv:2609.28857},
   year={2026}
 }
 ```
